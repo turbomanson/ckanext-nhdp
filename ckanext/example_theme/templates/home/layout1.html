@@ -19,24 +19,28 @@
 </div>
 
 
-
 <div role="main">
   <div class="container">
     <div class="row row3">
-      <div class="col-md-6 col1">
+      <div class="col-md-12 col1">
         {# Note: this featured_group block is used as an example in the theming
            tutorial in the docs! If you change this code, be sure to check
            whether you need to update the docs. #}
         {# Start template block example. #}
-        {% block featured_group %}
-          {% snippet 'home/snippets/featured_group.html' %}
-        {% endblock %}
+        <h1 class="hide-heading">{{ _('Groups') }}</h1>
+        {% block groups_list %}
+          {% if c.page.items or request.params %}
+            {% if c.page.items %}
+              {% snippet "group/snippets/group_list.html", groups=c.page.items %}
+            {% endif %}
+          {% else %}
+            <p class="empty">
+              {{ _('There are currently no groups for this site') }}.
+              {% if h.check_access('group_create') %}
+                {% link_for _('How about creating one?'), controller='group', action='new' %}</a>.
+              {% endif %}
+            </p>
         {# End template block example. #}
-      </div>
-      <div class="col-md-6 col2">
-        {% block featured_organization %}
-          {% snippet 'home/snippets/featured_organization.html' %}
-        {% endblock %}
       </div>
     </div>
   </div>
