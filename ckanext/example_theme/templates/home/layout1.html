@@ -28,7 +28,7 @@
            whether you need to update the docs. #}
         {# Start template block example. #}
         <h1 class="hide-heading">{{ _('Groups') }}</h1>
-        {% snippet "group/snippets/group_list.html" %}
+        {% snippet "group/snippets/group_list.html", groups=c.page.items %}
         {# End template block example. #}
       </div>
     </div>
