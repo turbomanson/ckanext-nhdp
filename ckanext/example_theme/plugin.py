@@ -1,6 +1,12 @@
 import ckan.plugins as plugins
 import ckan.plugins.toolkit as toolkit
+
+from webhelpers.html import HTML, literal
 import webhelpers.text as whtext
+from markdown import markdown
+import re
+
+RE_MD_HTML_TAGS = re.compile('<[^><]*>')
 
 def most_popular_groups():
     '''Return a sorted list of the groups with the most datasets.'''
@@ -26,7 +32,7 @@ def markdown_extract(text, extract_length=190):
         return literal(plain)
 
     return literal(
-        text_type(g
+        text_type(
             whtext.chop_at(
                 plain,
                 '.',
