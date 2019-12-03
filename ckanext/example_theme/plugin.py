@@ -26,7 +26,7 @@ def markdown_extract(text, extract_length=190):
         return literal(plain)
 
     return literal(
-        text_type(
+        text_type(g
             whtext.chop_at(
                 plain,
                 '.',
