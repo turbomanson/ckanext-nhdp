@@ -1,5 +1,6 @@
 import ckan.plugins as plugins
 import ckan.plugins.toolkit as toolkit
+import webhelpers.text as whtext
 
 def most_popular_groups():
     '''Return a sorted list of the groups with the most datasets.'''
@@ -13,6 +14,26 @@ def most_popular_groups():
     groups = groups[:10]
 
     return groups
+
+def markdown_extract(text, extract_length=190):
+    ''' return the plain text representation of markdown encoded text.  That
+    is the texted without any html tags.  If extract_length is 0 then it
+    will not be truncated.'''
+    if not text:
+        return ''
+    plain = RE_MD_HTML_TAGS.sub('', markdown(text))
+    if not extract_length or len(plain) < extract_length:
+        return literal(plain)
+
+    return literal(
+        text_type(
+            whtext.chop_at(
+                plain,
+                '.',
+                True
+            )
+        )
+    )
 
 class Example_ThemePlugin(plugins.SingletonPlugin):
     plugins.implements(plugins.IConfigurer)
@@ -35,4 +56,4 @@ class Example_ThemePlugin(plugins.SingletonPlugin):
         # Template helper function names should begin with the name of the
         # extension they belong to, to avoid clashing with functions from
         # other extensions.
-        return {'example_theme_most_popular_groups': most_popular_groups}
+        return {'example_theme_most_popular_groups': most_popular_groups, 'example_theme_markdown_extract':markdown_extract}
