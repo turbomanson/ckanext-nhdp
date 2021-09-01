@@ -1,0 +1,14 @@
+# nhdp-js:
+#   filter: rjsmin
+#   output: ckanext-nhdp/%(version)s-nhdp.js
+#   contents:
+#     - js/nhdp.js
+#   extra:
+#     preload:
+#       - base/main
+
+# nhdp-css:
+#   filter: cssrewrite
+#   output: ckanext-nhdp/%(version)s-nhdp.css
+#   contents:
+#     - css/nhdp.css
